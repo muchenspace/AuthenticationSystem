@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #6e8efb;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #a777e3;
+        }
+
+        pre {
+            color: #fff;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h1>Login</h1>
+            <form id="loginForm">
+                <label for="key">卡密:</label>
+                <input type="text" id="key" name="key" required>
+                <button type="submit">登录</button>
+            </form>
+            <pre id="response"></pre>
+        </div>
+    </div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // 阻止表单默认提交行为
+
+            const key = document.getElementById('key').value;
+            const appId = 1;
+            const url = `http://localhost:8080/key/login?appId=${appId}&key=${key}`;
+
+            axios.post(url)
+                .then(function (response) {
+                    document.getElementById('response').textContent = JSON.stringify(response.data, null, 2);
+                })
+                .catch(function (error) {
+                    console.error('Error:', error);
+                    document.getElementById('response').textContent = '登录失败，请重试。';
+                });
+        });
+    </script>
+</body>
+
+</html>

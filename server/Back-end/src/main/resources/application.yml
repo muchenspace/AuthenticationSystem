@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: verification
+  datasource:
+    url: jdbc:mysql://localhost:3306/verification
+    username: root
+    password: 123456ad
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      host: localhost
+      port: 6379
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*.xml
